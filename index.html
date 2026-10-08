@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en" id="top">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Compare two video contribution paths using editable codec and transport planning assumptions, geographic distance, and transparent latency calculations.">
+  <title>Video Latency Calculator</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="script.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#workspace">Skip to calculator</a>
+  <header class="masthead"><div class="wrap masthead-inner">
+    <div><p class="eyebrow">Broadcast engineering / contribution planning</p><h1>Video Latency Calculator</h1><p class="intro">Compare the delay from source to destination across two video paths.</p></div>
+    <span class="version">V1.0 <span>ONE-WAY DELAY</span></span>
+  </div></header>
+  <main class="wrap" id="workspace">
+    <noscript><p class="notice">Enable JavaScript to use the calculator.</p></noscript>
+    <div class="toolbar">
+      <label class="link-switch"><input id="linked" type="checkbox" checked><span>Use the same endpoints for A &amp; B</span></label>
+      <div class="actions"><button id="copy" class="secondary" type="button">Copy Path A to B</button><button id="reset-all" class="secondary" type="button">Reset All</button><button id="export" type="button">Export Comparison (.csv)</button></div>
+    </div>
+    <div id="action-status" class="sr-only" role="status" aria-live="polite"></div>
+    <div class="path-grid summaries"><section id="summary-A" class="path-summary path-a" aria-label="Path A diagram and results"></section><section id="summary-B" class="path-summary path-b" aria-label="Path B diagram and results"></section></div>
+    <section class="comparison" aria-labelledby="difference-heading"><div><p class="eyebrow">Path comparison</p><h2 id="difference-heading">Difference in delay</h2></div><div id="difference" class="difference" aria-live="polite" aria-atomic="true"></div></section>
+    <div class="path-grid controls-grid"><section id="controls-A" class="panel path-a" aria-label="Path A settings"></section><section id="controls-B" class="panel path-b" aria-label="Path B settings"></section></div>
+    <p class="api-note"><span id="api-status" role="status">Checking address lookup…</span> <span>Distance and coordinate calculations run in your browser.</span></p>
+    <details class="panel sources" id="sources"><summary>Sources &amp; Assumptions <span>Equations, planning values, and limits</span></summary>
+      <div class="source-grid">
+        <div><h3>What the total includes</h3><p><strong>Total = encode + transport + decode + display.</strong> All values are one-way milliseconds. Seconds = ms ÷ 1,000. Frames = ms × 60 ÷ 1,000; fractional frames are equivalent delay at a fixed 60 fps.</p><p>Capture, production switching, audio alignment, packetization, retransmission, jitter buffers, network processing and queuing are not separate stages in V1. Include applicable delay in your measured stage values. Avoid counting the same buffer twice.</p><h3>Generic codec planning defaults</h3><table><caption>Editable estimates; these are not equipment specifications.</caption><thead><tr><th>Codec</th><th>Encode</th><th>Decode</th></tr></thead><tbody><tr><td>HEVC / H.265</td><td>150 ms</td><td>10 ms</td></tr><tr><td>AVC / H.264</td><td>100 ms</td><td>10 ms</td></tr><tr><td>JPEG XS</td><td>8 ms</td><td>8 ms</td></tr></tbody></table><p>Display starts at 15 ms and is editable under Advanced. Actual delays depend on hardware, configuration, GOP, resolution, frame rate and operating mode. <a href="https://aws.amazon.com/blogs/media/metfc-live-media-workflows-on-aws-to-compress-or-to-not-compress/" target="_blank" rel="noopener noreferrer">AWS explains the codec latency tradeoffs</a>; the exact presets here are the agreed V1 planning values.</p></div>
+        <div><h3>Fiber and microwave</h3><p><strong>Fiber route = geographic distance × route factor.</strong> The default route factor is 1.25, editable under Advanced. Fiber delay = route km ÷ (0.65 × 299,792.458 km/s) × 1,000.</p><p><strong>Microwave delay = geographic km ÷ (0.99 × 299,792.458 km/s) × 1,000.</strong> No fiber route factor is applied. The 65% and 99% propagation speeds are the agreed approximations. They are not universal medium specifications.</p><p>The <a href="https://physics.nist.gov/cgi-bin/cuu/Value?c" target="_blank" rel="noopener noreferrer">NIST speed of light</a> is 299,792,458 m/s. 1 mile = 1.609344 km. Coordinates use a spherical great-circle calculation with mean Earth radius 6,371.0088 km. This is geographic separation, not a surveyed cable route or a radio link survey.</p><p>Microwave calculations do not verify line of sight, terrain, Earth curvature, Fresnel clearance, weather, equipment delay or required relay hops. A long geographic path is a propagation estimate only.</p></div>
+        <div><h3>Satellite and Internet</h3><p><strong>GEO: 300 ms. LEO / Starlink: 60 ms.</strong> These are editable one-way planning assumptions. GEO includes an Earth–satellite–Earth traversal. It is not a round trip back to the source. NASA places <a href="https://earthobservatory.nasa.gov/features/OrbitsCatalog" target="_blank" rel="noopener noreferrer">GEO altitude at approximately 35,786 km</a>; a minimum vertical up-and-down traversal takes about 239 ms before other delay.</p><p><a href="https://starlink.com/nr/updates/network-update" target="_blank" rel="noopener noreferrer">Starlink published latency</a> is round-trip. Our 60 ms one-way preset is an independent planning assumption, not a conversion of that figure.</p><p><strong>Internet: Local / Metro 15 ms; Regional 30 ms; Long Distance 60 ms.</strong> These are agreed planning tiers, not measured guarantees or distance-based models. Replace them with observed one-way delay where available. <a href="https://www.rfc-editor.org/rfc/rfc7679" target="_blank" rel="noopener noreferrer">RFC 7679</a> explains one-way measurement and path asymmetry; half of ping round-trip time is only an approximation.</p></div>
+        <div><h3>Locations, privacy, and value sources</h3><p>Endpoints are linked by default; unlink to give Path B its own endpoints. Typed distances are used directly. Address lookup occurs only when you select Look up and sends that query to the configured Cloudflare Worker and Geoapify. Coordinates and CSV export require no external service. The app does not save your settings or put them in a share URL.</p><p>Check the returned address before selecting a result. Geocoding precision varies, and a city result is not a building location. Powered by <a href="https://www.geoapify.com/" target="_blank" rel="noopener noreferrer">Geoapify</a> · <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">© OpenStreetMap contributors</a>.</p><p><strong>Default</strong> identifies an agreed planning estimate. <strong>Calculated</strong> identifies a value derived from distance. <strong>User entered</strong> identifies an override. The difference is absolute and does not rank the paths. Exported numeric results keep more precision than the display.</p><p>Diagrams are schematic and not to scale. V1 is a planning tool; validate against actual equipment and network measurements.</p></div>
+      </div>
+    </details>
+  </main>
+  <footer class="wrap"><span>Video Latency Calculator · V1.0</span><a href="#sources">Sources &amp; Assumptions</a></footer>
+</body>
+</html>
