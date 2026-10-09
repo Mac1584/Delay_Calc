@@ -1,0 +1,80 @@
+/* Calculator layout, adapted to the Waypoint Utility Web style guide. */
+:root { --ink:#25323a; --muted:#52616b; --navy:#193b58; --line:#89949d; --paper:#e5e7e8; --a:#193b58; --b:#356641; --accent:#fff3c1; }
+.wrap { width:auto; max-width:1240px; }
+main.wuw-body { padding-top:0; }
+.toolbar { margin-bottom:16px; padding:12px 14px; border:1px solid var(--line); background:#d1d6da; gap:12px; }
+.toolbar button { min-height:38px; font-size:12px; }
+.link-switch { font-size:12px; }
+button { border-radius:0; background:#193b58; font-size:13px; padding:9px 12px; min-height:42px; }
+button.secondary { background:#eef0f1; color:#193b58; border-color:#89949d; box-shadow:inset 1px 1px #fff; }
+button.secondary:hover { background:#dfe5e8; }
+button.text-button { color:#204f72; }
+button:disabled { opacity:.65; }
+input,select { border-radius:0; border-color:#89949d; font-size:14px; min-height:42px; padding:8px; }
+input:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible,summary:focus-visible { outline-color:#956000; }
+.path-grid { gap:16px; }
+.panel,.path-summary { border-radius:0; border:1px solid var(--line); background:#fff; box-shadow:none; min-width:0; }
+.path-top { padding:10px 14px; background:#d1d6da; border-bottom:1px solid var(--line); }
+.path-top h2,.control-title h2 { font-size:14px; letter-spacing:0; }
+.path-letter { border-radius:0; width:27px; height:27px; font-size:13px; }
+.transport-tag { font-size:12px; }
+.diagram { background:#fff; padding:8px 12px 0; }
+.diagram svg { height:95px; }
+.diagram .stage { stroke:#89949d; }
+.endpoint-labels { font-size:12px; padding-top:8px; }
+.stage-labels { font-size:12px; gap:8px; margin-bottom:12px; }
+.path-result { background:#fff3c1; padding:12px 14px; border-top:1px solid #b5a565; }
+.path-result .total-label { color:#4d4b37; font-size:12px; }
+.total { font:700 28px/1.25 Arial,sans-serif; letter-spacing:0; }
+.total small { font-size:14px; }
+.secondary-result { color:#4c5149; font-size:12px; }
+.secondary-result strong { font-size:14px; }
+.comparison { border:1px solid #89949d; border-radius:0; background:#e7f0e7; margin:16px 0; padding:12px 14px; }
+.comparison h2 { font-size:14px; }
+.comparison .eyebrow { color:#356641; }
+.difference { font-size:22px; color:#294f33; letter-spacing:0; }
+.difference span { font-size:12px; color:#405847; }
+.controls-grid .panel { padding:0 14px 14px; }
+.control-title { background:#d1d6da; border-bottom:1px solid #89949d; margin:0 -14px 16px; padding:9px 14px; }
+.control-title button { min-height:35px; font-size:12px; }
+.control-section { padding-top:14px; margin-top:14px; border-color:#b4bcc1; }
+.section-label { font-size:13px; margin-bottom:10px; }
+.section-label span { border-radius:0; background:#eef0f1; color:#193b58; border-color:#89949d; }
+.form-grid { gap:12px; }
+label.field-label { font-size:12px; margin-bottom:5px; }
+.hint { font-size:12px; }
+.provenance { font-size:11px; color:#356641; }
+.decoder-summary,.distance-note,.linked-note { border-radius:0; border:1px solid #a3b0a0; background:#eef3ed; font-size:12px; padding:9px 10px; }
+.decoder-summary p,.decoder-summary summary { font-size:12px; }
+.advanced { border:1px solid #b4bcc1; padding:0 10px 10px; background:#f2f3f4; margin-top:16px; }
+.advanced>summary { font-size:12px; padding:8px 0 0; min-height:36px; }
+.advanced[open]>summary { margin-bottom:10px; }
+.errors { font-size:12px; }
+.candidate { border-radius:0; background:#eef0f1; border-color:#89949d; font-size:12px; }
+.candidate:hover { background:#e7f0e7; }
+.notice { background:#fff3c1; border:1px solid #b5a565; }
+.api-note { font-size:12px; border:1px solid #89949d; background:#eef0f1; padding:9px 12px; margin:16px 0; }
+.result-section-title,.input-section-title { display:flex; align-items:center; gap:8px; margin:16px 0 9px; padding:8px 12px; border:1px solid #89949d; background:#193b58; color:#fff; font-size:13px; }
+.input-section-title { background:#d1d6da; color:#193b58; }
+.method-panel { margin-top:16px; }
+.method-panel .wuw-panel-content { font-size:12px; padding:12px 14px; }
+.method-panel p { margin:0 0 7px; }
+.method-panel p:last-child { margin-bottom:0; }
+.method-panel code { font-size:12px; color:#193b58; }
+.sources { padding:0; margin-top:16px; }
+.sources>summary { background:#d1d6da; padding:11px 14px; font-size:14px; color:#193b58; }
+.sources>summary .wuw-icon { margin-right:5px; }
+.sources>summary span { color:#52616b; font-size:12px; }
+.source-grid { padding:0 14px 14px; margin:0; border-top:1px solid #89949d; gap:0 24px; }
+.source-grid h3 { font-size:13px; }
+.source-grid p,table { font-size:12px; }
+th,td { border:1px solid #b4bcc1; padding:6px 8px; }
+th { background:#d1d6da; }
+tbody tr:nth-child(even) { background:#f3f4f4; }
+.wuw-footer { padding:12px 16px; }
+.wuw-footer span,.wuw-footer a { font-size:11px; }
+@media(max-width:1272px) { .wrap.wuw-body { width:auto; } }
+@media(max-width:720px) { .path-grid { grid-template-columns:minmax(0,1fr); }.sources>summary span { display:block; margin:4px 0 0; }.source-grid { grid-template-columns:1fr; }.diagram svg { height:90px; }.toolbar { gap:10px; }.actions { width:100%; }.actions button { flex-grow:1; }.api-note span { display:block; }.comparison { gap:12px; }.wrap.wuw-body { width:auto; } }
+@media(max-width:420px) { .path-top { align-items:flex-start; gap:8px; }.path-title { gap:6px; }.transport-tag { max-width:55%; }.stage-labels { gap:6px; font-size:11px; }.path-result { align-items:flex-start; gap:6px; }.total { font-size:26px; }.secondary-result { font-size:11px; }.secondary-result strong { font-size:12px; }.control-title { gap:8px; }.control-title h2 { font-size:13px; }.control-title button { padding:6px 7px; font-size:11px; } }
+@media(max-width:380px) { .form-grid { grid-template-columns:minmax(0,1fr); }.comparison { display:block; }.difference { text-align:left; margin-top:6px; }.field-row { flex-direction:column; align-items:stretch; }.path-result { flex-wrap:wrap; }.secondary-result { text-align:left; }.sources>summary { font-size:13px; } }
+@media print { .toolbar,.controls-grid,.input-section-title,.api-note { display:none; }.path-grid { grid-template-columns:1fr 1fr; }.path-summary,.comparison,.method-panel { break-inside:avoid; }.wuw-body { margin:12px 0; }.wuw-footer { margin:12px 0; } }
